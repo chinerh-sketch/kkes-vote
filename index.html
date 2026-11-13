@@ -8,9 +8,7 @@
   @import url('https://googleapis.com');
   :root {
     --blue: #1565c0;
-    --blue-light: #e3f2fd;
     --green: #2e7d32;
-    --green-light: #e8f5e9;
     --yellow: #ffca28;
   }
   * { box-sizing: border-box; font-family: 'Noto Sans TC', sans-serif; user-select: none; }
@@ -169,7 +167,7 @@
         <button class="meal a" data-v="A" type="button">
           <span class="tick">✓ 我選這個</span>
           <div class="meal-img-box">
-            <img src="banner.jpg" alt="前進世界餐" style="width:166%; max-width:none; margin-left:-2%; margin-top:-56%;">
+            <img src="banner.jpg" alt="前進世界餐" style="width:176%; max-width:none; margin-left:-3%; margin-top:-60%;">
           </div>
           <h3>① 前進世界餐 🌍</h3>
           <ul>
@@ -186,7 +184,7 @@
         <button class="meal b" data-v="B" type="button">
           <span class="tick">✓ 我選這個</span>
           <div class="meal-img-box">
-            <img src="banner.jpg" alt="綠色未來餐" style="width:166%; max-width:none; margin-left:-68%; margin-top:-108%;">
+            <img src="banner.jpg" alt="綠色未來餐" style="width:176%; max-width:none; margin-left:-77%; margin-top:-114%;">
           </div>
           <h3>② 綠色未來餐 🌱</h3>
           <ul>
@@ -220,37 +218,67 @@
 </div>
 
 <script>
-const SCRIPT_URL="https://google.com";
-const ROSTER={一年一班:21,一年二班:20,一年三班:20,一年四班:23,二年一班:27,二年二班:27,二年三班:27,二年四班:27,三年一班:23,三年二班:22,三年三班:24,三年四班:24,四年一班:26,四年二班:25,四年三班:26,四年四班:25,五年一班:25,五年二班:25,五年三班:26,五年四班:24,六年一班:22,六年二班:23,六年三班:23,六年四班:22,六年五班:22,教職員:150};
-const $=id=>document.getElementById(id);
-let choice=null,db=null;
-const NAME={A:"① 前進世界餐",B:"② 綠色未來餐"};
+const SCRIPT_URL = "https://google.com";
+const ROSTER = {
+  "一年一班": 21, "一年二班": 20, "一年三班": 20, "一年四班": 23,
+  "二年一班": 27, "二年二班": 27, "二年三班": 27, "二年四班": 27,
+  "三年一班": 23, "三年二班": 22, "三年三班": 24, "三年四班": 24,
+  "四年一班": 26, "四年二班": 25, "四年三班": 26, "四年四班": 25,
+  "五年一班": 25, "五年二班": 25, "五年三班": 26, "五年四班": 24,
+  "六年一班": 22, "六年二班": 23, "六年三班": 23, "六年四班": 22, "六年五班": 22,
+  "教職員": 150
+};
+const NAME = { "A": "① 前進世界餐", "B": "② 綠色未來餐" };
+let choice = null;
 
-$("cls").innerHTML='<option value="">請選擇班級 / 教職員</option>'+Object.keys(ROSTER).map(c=>`<option>${c}</option>`).join("");
+function $(id) { return document.getElementById(id); }
 
-$("cls").addEventListener("change",()=>{
-  $("seat").placeholder = $("cls").value==="教職員" ? "請輸入教師編號" : "座號 例如：15";
+// 初始化班級選單
+function initRoster() {
+  const clsEl = $("cls");
+  let html = '<option value="">請選擇班級 / 教職員</option>';
+  for (const key in ROSTER) {
+    html += '<option value="' + key + '">' + key + '</option>';
+  }
+  clsEl.innerHTML = html;
+}
+initRoster();
+
+$("cls").addEventListener("change", function() {
+  $("seat").placeholder = ($("cls").value === "教職員") ? "請輸入教師編號" : "座號 例如：15";
   check();
 });
 
-function check(){$("go").disabled=!($("cls").value&&$("seat").value&&choice)}
-["cls","seat"].forEach(i=>$(i).addEventListener("input",check));
-document.querySelectorAll(".meal").forEach(b=>b.onclick=()=>{
-  choice=b.dataset.v;document.querySelectorAll(".meal").forEach(x=>x.classList.toggle("sel",x===b));check()});
+function check() {
+  $("go").disabled = !($("cls").value && $("seat").value && choice);
+}
 
-(async()=>{try{if(window.claude)db=await claude.use("db")}catch(e){db=null}})();
+$("cls").addEventListener("input", check);
+$("seat").addEventListener("input", check);
 
-function say(t,e){$("msg").textContent=t;$("msg").className="msg"+(e?" err":"")}
-function localKey(k){return "kkes74:"+k}
+document.querySelectorAll(".meal").forEach(function(btn) {
+  btn.onclick = function() {
+    choice = btn.getAttribute("data-v");
+    document.querySelectorAll(".meal").forEach(function(x) {
+      x.classList.toggle("sel", x === btn);
+    });
+    check();
+  };
+});
 
-$("go").onclick=async()=>{
-  const cn=$("cls").value,s=parseInt($("seat").value,10);
-  if(!(s>=1&&s<=ROSTER[cn])){say(`${cn}的號碼範圍是 1～${ROSTER[cn]} 號`,1);return}
-  const id=cn+"-"+s;
-  $("go").disabled=true;say("選票傳送中，請稍候…");
-  try{
-    if(SCRIPT_URL){
-      const r=await (await fetch(SCRIPT_URL+"?cls="+encodeURIComponent(cn)+"&seat="+s+"&choice="+choice)).json();
-      if(!r.ok){say(r.msg||"送出失敗",1);$("go").disabled=false;return}
-    }else{
-      if(localStorage.getItem(localKey(id))){say("這個號碼已經投過票囉！",1);$("go").disabled=false;return}
+function say(text, isErr) {
+  $("msg").textContent = text;
+  $("msg").className = "msg" + (isErr ? " err" : "");
+}
+
+function localKey(k) { return "kkes74:" + k; }
+
+$("go").onclick = async function() {
+  const cn = $("cls").value;
+  const s = parseInt($("seat").value, 10);
+  if (!(s >= 1 && s <= ROSTER[cn])) {
+    say(cn + "的號碼範圍是 1～" + ROSTER[cn] + " 號", true);
+    return;
+  }
+  const id = cn + "-" + s;
+  $("go").disabled = true;
