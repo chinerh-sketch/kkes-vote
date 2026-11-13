@@ -1,169 +1,161 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>國光國小 74 週年校慶特餐 2選1 投票系統</title>
-  <style>
-    body { font-family: "Microsoft JhengHei", sans-serif; background: #f0f4f8; margin: 0; padding: 16px; color: #333; }
-    .container { max-width: 600px; margin: 0 auto; background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    h1 { text-align: center; color: #1a56db; font-size: 1.5rem; margin-bottom: 4px; }
-    .subtitle { text-align: center; color: #666; font-size: 0.95rem; margin-bottom: 20px; }
-    .form-group { margin-bottom: 16px; }
-    label { display: block; font-weight: bold; margin-bottom: 6px; color: #1e293b; }
-    select, input { width: 100%; padding: 12px; border: 2px solid #cbd5e1; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
-    .meals { display: flex; flex-direction: column; gap: 14px; margin: 20px 0; }
-    .meal-card { border: 3px solid #e2e8f0; border-radius: 12px; padding: 16px; cursor: pointer; transition: 0.2s; }
-    .meal-card.selected-1 { border-color: #2563eb; background: #eff6ff; }
-    .meal-card.selected-2 { border-color: #16a34a; background: #f0fdf4; }
-    .meal-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-    .badge-1 { background: #2563eb; color: #fff; padding: 2px 10px; border-radius: 20px; font-size: 0.9rem; }
-    .badge-2 { background: #16a34a; color: #fff; padding: 2px 10px; border-radius: 20px; font-size: 0.9rem; }
-    .menu-list { margin: 0; padding-left: 20px; line-height: 1.6; color: #475569; }
-    .bonus { margin-top: 8px; font-size: 0.9rem; color: #d97706; font-weight: bold; }
-    .btn-submit { width: 100%; padding: 14px; background: #1a56db; color: #fff; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; }
-    .btn-submit:disabled { background: #94a3b8; cursor: not-allowed; }
-    .admin-box { margin-top: 32px; padding-top: 16px; border-top: 1px dashed #cbd5e1; text-align: center; }
-    .admin-btn { background: none; border: 1px solid #94a3b8; color: #64748b; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
-    #resultPanel { display: none; margin-top: 16px; background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>國光國小 74 週年校慶餐點票選</title>
+<style>
+:root{--bg1:#dff1ff;--bg2:#fff6d6;--card:#ffffff;--ink:#16335c;--sub:#4a6286;--blue:#1f6fe0;--green:#1f9d55;--orange:#f08a00;--line:#cfe3f7;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg1:#0f2340;--bg2:#2a2a1a;--card:#17304f;--ink:#eaf3ff;--sub:#a9c0de;--line:#2c4a73}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);background:linear-gradient(180deg,var(--bg1),var(--bg2));min-height:100vh}
+.wrap{max-width:860px;margin:0 auto;padding:14px}
+.hero{text-align:center;padding:18px 10px 6px}
+.badge{display:inline-block;background:var(--blue);color:#fff;border-radius:99px;padding:4px 16px;font-weight:700;letter-spacing:2px}
+h1{margin:10px 0 4px;font-size:clamp(28px,6vw,46px);color:var(--blue);line-height:1.2}
+h1 span{background:#ffd23f;color:#16335c;border-radius:20px;padding:0 14px;margin-left:6px;white-space:nowrap}
+.when{display:inline-block;margin-top:8px;background:#ffd23f;color:#16335c;font-weight:800;border-radius:12px;padding:8px 18px;font-size:clamp(16px,3.6vw,22px)}
+.card{background:var(--card);border:3px solid var(--line);border-radius:22px;padding:16px;margin-top:14px;box-shadow:0 4px 12px #0001}
+.step{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800;margin:0 0 10px}
+.step i{font-style:normal;background:var(--blue);color:#fff;border-radius:50%;width:34px;height:34px;display:grid;place-items:center;flex:none}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+select,input{font:inherit;font-size:20px;padding:12px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);flex:1;min-width:120px}
+.meals{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:640px){.meals{grid-template-columns:1fr 1fr}}
+.meal{position:relative;cursor:pointer;border:4px solid var(--line);border-radius:22px;padding:14px;background:var(--card);text-align:left;font:inherit;color:inherit;transition:transform .15s}
+.meal:active{transform:scale(.98)}
+.meal h3{margin:0 0 8px;font-size:24px}
+.meal.a h3{color:var(--blue)}.meal.b h3{color:var(--green)}
+.meal ul{margin:0;padding:0;list-style:none;font-size:19px;line-height:1.9}
+.meal li:before{content:"✔ ";color:var(--blue)}.meal.b li:before{color:var(--green)}
+.bonus{margin-top:8px;background:#fff1d6;color:#8a4b00;border-radius:12px;padding:8px 12px;font-weight:700}
+.tick{display:none;position:absolute;top:-14px;right:-8px;background:#e8344a;color:#fff;font-weight:800;border-radius:99px;padding:6px 14px;font-size:18px}
+.meal.sel{transform:scale(1.02)}.meal.a.sel{border-color:var(--blue);box-shadow:0 0 0 5px #1f6fe033}.meal.b.sel{border-color:var(--green);box-shadow:0 0 0 5px #1f9d5533}
+.meal.sel .tick{display:block}
+.note{font-size:15px;color:var(--sub);text-align:center;margin:10px 0 0}
+.go{width:100%;margin-top:14px;border:0;border-radius:18px;background:var(--blue);color:#fff;font:inherit;font-size:24px;font-weight:800;padding:16px;cursor:pointer}
+.go:disabled{background:#9db4d1}
+.msg{margin-top:10px;text-align:center;font-weight:700;font-size:18px;min-height:1.4em}
+.err{color:#d6283c}
+.staff{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.staff b{font-size:19px}.staff p{margin:4px 0 0;color:var(--sub);font-size:17px}
+.done{display:none;text-align:center;padding:30px 10px}
+.done .big{font-size:64px}.done h2{color:var(--green);font-size:30px;margin:6px 0}
+.admin{margin:18px 0 6px;text-align:center}
+.admin button{border:2px dashed var(--line);background:transparent;color:var(--sub);border-radius:12px;padding:8px 16px;font:inherit;cursor:pointer}
+.bar{height:34px;border-radius:99px;background:var(--line);overflow:hidden;margin:8px 0}
+.bar div{height:100%;color:#fff;font-weight:800;display:flex;align-items:center;padding-left:12px;white-space:nowrap;min-width:60px}
+</style>
 </head>
 <body>
-
-<div class="container">
-  <h1>🎉 國光國小 74 週年校慶特餐投票</h1>
-  <div class="subtitle">投票時間：11/17(二) - 11/18(三) ｜ 每人限投一票</div>
-
-  <div class="form-group">
-    <label for="classSelect">1. 請選擇班級：</label>
-    <select id="classSelect">
-      <option value="">載入班級名單中，請稍候...</option>
-    </select>
+<div class="wrap">
+  <div class="hero">
+    <span class="badge">國光國小 74th 校慶系列活動</span>
+    <h1>校慶餐點<span>2選1</span></h1>
+    <div>未來・前進 Future 74　🍽️　請點選你最想吃的餐點</div>
+    <div class="when">🗳️ 投票時間：11/17(二) – 11/18(三)　每人一票</div>
   </div>
 
-  <div class="form-group">
-    <label for="seatInput">2. 請輸入座號：</label>
-    <input type="text" id="seatInput" placeholder="請輸入數字座號，例如：15" inputmode="numeric">
-  </div>
-
-  <label>3. 請點選想吃的校慶特餐（2選1）：</label>
-  <div class="meals">
-    <div class="meal-card" id="card1" onclick="selectMeal('1')">
-      <div class="meal-title"><span class="badge-1">① 前進世界餐</span></div>
-      <ul class="menu-list">
-        <li>墨西哥風肉醬麵</li>
-        <li>日式照燒滷雞翅</li>
-        <li>奶香玉米餅</li>
-        <li>焗烤青花菜</li>
-        <li>義式蔬菜湯</li>
-      </ul>
-      <div class="bonus">🎁 加菜金：橘子 + 果汁</div>
+  <div id="form">
+    <div class="card">
+      <p class="step"><i>1</i>我是幾年幾班、幾號？</p>
+      <div class="row">
+        <select id="cls"></select>
+        <input id="seat" type="number" inputmode="numeric" min="1" max="40" placeholder="座號 例如：15">
+      </div>
     </div>
 
-    <div class="meal-card" id="card2" onclick="selectMeal('2')">
-      <div class="meal-title"><span class="badge-2">② 綠色未來餐</span></div>
-      <ul class="menu-list">
-        <li>霧峰香米炊飯</li>
-        <li>香料烤雞腿(洽富)氣冷雞</li>
-        <li>梅香炸薯條</li>
-        <li>在地鮮菇炒時蔬</li>
-        <li>大甲芋頭西米露</li>
-      </ul>
-      <div class="bonus">🎁 加菜金：橘子 + 果汁</div>
+    <div class="card">
+      <p class="step"><i>2</i>點一下你想吃的餐點</p>
+      <div class="meals">
+        <button class="meal a" data-v="A" type="button"><span class="tick">✔ 我選這個</span>
+          <h3>① 前進世界餐 🌍</h3>
+          <ul><li>墨西哥風肉醬麵</li><li>日式照燒滷雞翅</li><li>奶香玉米餅</li><li>焗烤青花菜</li><li>義式蔬菜湯</li></ul>
+          <div class="bonus">🎁 加菜金：橘子 + 果汁</div></button>
+        <button class="meal b" data-v="B" type="button"><span class="tick">✔ 我選這個</span>
+          <h3>② 綠色未來餐 🌱</h3>
+          <ul><li>霧峰香米炊飯</li><li>香料烤雞腿(洽富)氣冷雞</li><li>梅香炸薯條</li><li>在地鮮菇炒時蔬</li><li>大甲芋頭西米露</li></ul>
+          <div class="bonus">🎁 加菜金：橘子 + 果汁</div></button>
+      </div>
+      <p class="note">※ 照片中的餐點僅為示意圖</p>
+    </div>
+
+    <button class="go" id="go" disabled>確認送出投票</button>
+    <div class="msg" id="msg"></div>
+
+    <div class="card">
+      <p class="step"><i>📱</i>教職員投票方式</p>
+      <div class="staff">
+        <div><b>教職員請掃描海報上的 QR Code 投票（一人一票）</b>
+        <p>📍 投票地點：學務處前走廊</p>
+        <p>🕘 11/17(二) – 11/18(三)</p></div>
+      </div>
+      <p class="note" style="text-align:left">學生請使用班級平板，選好班級、座號與餐點後送出。</p>
     </div>
   </div>
 
-  <button class="btn-submit" id="submitBtn" onclick="submitVote()">確認送出投票</button>
-
-  <div class="admin-box">
-    <button class="admin-btn" onclick="checkResults()">🔒 管理員即時開票</button>
-    <div id="resultPanel"></div>
+  <div class="card done" id="done">
+    <div class="big">🎉</div><h2>投票完成，謝謝你！</h2>
+    <p id="doneTxt" style="font-size:20px"></p>
+    <p class="note">每人限投一票，請把平板交給下一位同學。</p>
+    <button class="go" id="again">下一位同學投票</button>
   </div>
+
+  <div class="admin"><button id="adm">🔒 管理員即時開票</button></div>
+  <div class="card" id="result" style="display:none"></div>
 </div>
 
 <script>
-  const GAS_URL = "https://script.google.com/macros/s/AKfycbxukH-bQZovIDHjN8unFLOArD8QFBn7YifxrGdqlzlfjuWstL-UcAcJI12XqM47q21L5Q/exec";
-  let selectedChoice = "";
+const SCRIPT_URL="";                 // 貼上 Apps Script 網頁應用程式網址（以 /exec 結尾）
+const ROSTER={一年一班:21,一年二班:20,一年三班:20,一年四班:23,二年一班:27,二年二班:27,二年三班:27,二年四班:27,三年一班:23,三年二班:22,三年三班:24,三年四班:24,四年一班:26,四年二班:25,四年三班:26,四年四班:25,五年一班:25,五年二班:25,五年三班:26,五年四班:24,六年一班:22,六年二班:23,六年三班:23,六年四班:22,六年五班:22}; // 各班最大座號
+const $=id=>document.getElementById(id);
+let choice=null,db=null;
+const NAME={A:"① 前進世界餐",B:"② 綠色未來餐"};
 
-  window.onload = function() {
-    fetch(GAS_URL + "?action=getClasses")
-      .then(res => res.json())
-      .then(data => {
-        const select = document.getElementById("classSelect");
-        select.innerHTML = '<option value="">-- 請選擇班級 --</option>';
-        data.classes.forEach(cls => {
-          const opt = document.createElement("option");
-          opt.value = cls;
-          opt.textContent = cls;
-          select.appendChild(opt);
-        });
-      })
-      .catch(() => {
-        alert("班級名單載入失敗，請確認試算表網址是否正確！");
-      });
-  };
+$("cls").innerHTML='<option value="">請選擇班級</option>'+Object.keys(ROSTER).map(c=>`<option>${c}</option>`).join("");
 
-  function selectMeal(num) {
-    selectedChoice = num;
-    document.getElementById("card1").className = "meal-card" + (num === "1" ? " selected-1" : "");
-    document.getElementById("card2").className = "meal-card" + (num === "2" ? " selected-2" : "");
-  }
+function check(){$("go").disabled=!($("cls").value&&$("seat").value&&choice)}
+["cls","seat"].forEach(i=>$(i).addEventListener("input",check));
+document.querySelectorAll(".meal").forEach(b=>b.onclick=()=>{
+  choice=b.dataset.v;document.querySelectorAll(".meal").forEach(x=>x.classList.toggle("sel",x===b));check()});
 
-  function submitVote() {
-    const userClass = document.getElementById("classSelect").value;
-    const userSeat = document.getElementById("seatInput").value.trim();
+(async()=>{try{if(window.claude)db=await claude.use("db")}catch(e){db=null}})();
 
-    if (!userClass) { alert("請先選擇班級！"); return; }
-    if (!userSeat) { alert("請輸入座號！"); return; }
-    if (!selectedChoice) { alert("請點選 ① 或 ② 號餐點！"); return; }
+function say(t,e){$("msg").textContent=t;$("msg").className="msg"+(e?" err":"")}
+function localKey(k){return "kkes74:"+k}
 
-    const btn = document.getElementById("submitBtn");
-    btn.disabled = true;
-    btn.textContent = "傳送投票中，請稍候...";
+$("go").onclick=async()=>{
+  const cn=$("cls").value,s=parseInt($("seat").value,10);
+  if(!(s>=1&&s<=ROSTER[cn])){say(`${cn}的座號是 1～${ROSTER[cn]} 號`,1);return}
+  const id=cn+"-"+s;
+  $("go").disabled=true;say("送出中…");
+  try{
+    if(SCRIPT_URL){
+      const r=await (await fetch(SCRIPT_URL+"?cls="+encodeURIComponent(cn)+"&seat="+s+"&choice="+choice)).json();
+      if(!r.ok){say(r.msg||"送出失敗",1);$("go").disabled=false;return}
+    }else{
+      if(localStorage.getItem(localKey(id))){say("這個座號已經投過票囉！",1);$("go").disabled=false;return}
+      localStorage.setItem(localKey(id),choice);
+    }
+  }catch(e){say("送出失敗，請再按一次或請老師協助",1);$("go").disabled=false;return}
+  $("doneTxt").textContent=`${cn} ${s}號　你選了「${NAME[choice]}」`;
+  $("form").style.display="none";$("done").style.display="block";window.scrollTo(0,0);
+};
+$("again").onclick=()=>{
+  choice=null;$("seat").value="";document.querySelectorAll(".meal").forEach(x=>x.classList.remove("sel"));
+  say("");check();$("done").style.display="none";$("form").style.display="block";window.scrollTo(0,0)};
 
-    fetch(GAS_URL, {
-      method: "POST",
-      body: JSON.stringify({ userClass: userClass, userSeat: userSeat, choice: selectedChoice })
-    })
-    .then(res => res.json())
-    .then(data => {
-      alert(data.message);
-      if (data.status === "success") {
-        document.getElementById("seatInput").value = "";
-        selectMeal("");
-      }
-      btn.disabled = false;
-      btn.textContent = "確認送出投票";
-    })
-    .catch(() => {
-      alert("連線發生錯誤，請稍後再試！");
-      btn.disabled = false;
-      btn.textContent = "確認送出投票";
-    });
-  }
-
-  function checkResults() {
-    const pass = prompt("請輸入管理員開票密碼：");
-    if (!pass) return;
-
-    fetch(GAS_URL + "?action=getResults&pass=" + encodeURIComponent(pass))
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === "error") {
-          alert(data.message);
-        } else {
-          const panel = document.getElementById("resultPanel");
-          panel.style.display = "block";
-          panel.innerHTML = `
-            <strong>📊 目前全校即時票數統計</strong><br><br>
-            ① 前進世界餐：<strong>${data.meal1}</strong> 票<br>
-            ② 綠色未來餐：<strong>${data.meal2}</strong> 票<br>
-            總投票數：<strong>${data.total}</strong> 票
-          `;
-        }
-      });
-  }
+$("adm").onclick=async()=>{
+  const pw=prompt("請輸入管理員密碼");if(!pw)return;
+  let a=0,b=0;
+  try{const r=await (await fetch(SCRIPT_URL+"?action=count&pw="+encodeURIComponent(pw))).json();
+  if(!r.ok){alert(r.msg||"無法開票");return}a=r.a;b=r.b}catch(e){alert("無法連線，請確認 SCRIPT_URL");return}
+  const t=a+b||1,r=$("result");r.style.display="block";
+  r.innerHTML=`<p class="step">📊 即時開票（共 ${a+b} 票）</p>
+  <b>① 前進世界餐　${a} 票</b><div class="bar"><div style="width:${a/t*100}%;background:var(--blue)">${Math.round(a/t*100)}%</div></div>
+  <b>② 綠色未來餐　${b} 票</b><div class="bar"><div style="width:${b/t*100}%;background:var(--green)">${Math.round(b/t*100)}%</div></div>`;
+};
 </script>
-
 </body>
 </html>
