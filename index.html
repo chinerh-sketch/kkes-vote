@@ -1,127 +1,237 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>國光國小 74 週年校慶餐點票選</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>國光國小 74th 校慶餐點 2選1</title>
 <style>
-:root{--bg1:#dff1ff;--bg2:#fff6d6;--card:#ffffff;--ink:#16335c;--sub:#4a6286;--blue:#1f6fe0;--green:#1f9d55;--orange:#f08a00;--line:#cfe3f7;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg1:#0f2340;--bg2:#2a2a1a;--card:#17304f;--ink:#eaf3ff;--sub:#a9c0de;--line:#2c4a73}}
-*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);background:linear-gradient(180deg,var(--bg1),var(--bg2));min-height:100vh}
-.wrap{max-width:860px;margin:0 auto;padding:14px}
-.hero{text-align:center;padding:18px 10px 6px}
-.badge{display:inline-block;background:var(--blue);color:#fff;border-radius:99px;padding:4px 16px;font-weight:700;letter-spacing:2px}
-h1{margin:10px 0 4px;font-size:clamp(28px,6vw,46px);color:var(--blue);line-height:1.2}
-h1 span{background:#ffd23f;color:#16335c;border-radius:20px;padding:0 14px;margin-left:6px;white-space:nowrap}
-.when{display:inline-block;margin-top:8px;background:#ffd23f;color:#16335c;font-weight:800;border-radius:12px;padding:8px 18px;font-size:clamp(16px,3.6vw,22px)}
-.card{background:var(--card);border:3px solid var(--line);border-radius:22px;padding:16px;margin-top:14px;box-shadow:0 4px 12px #0001}
-.step{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800;margin:0 0 10px}
-.step i{font-style:normal;background:var(--blue);color:#fff;border-radius:50%;width:34px;height:34px;display:grid;place-items:center;flex:none}
-.row{display:flex;gap:10px;flex-wrap:wrap}
-select,input{font:inherit;font-size:20px;padding:12px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);flex:1;min-width:120px}
-.meals{display:grid;gap:14px;grid-template-columns:1fr}
-@media(min-width:640px){.meals{grid-template-columns:1fr 1fr}}
-.meal{position:relative;cursor:pointer;border:4px solid var(--line);border-radius:22px;padding:14px;background:var(--card);text-align:left;font:inherit;color:inherit;transition:transform .15s}
-.meal:active{transform:scale(.98)}
-.meal h3{margin:0 0 8px;font-size:24px}
-.meal.a h3{color:var(--blue)}.meal.b h3{color:var(--green)}
-.meal ul{margin:0;padding:0;list-style:none;font-size:19px;line-height:1.9}
-.meal li:before{content:"✔ ";color:var(--blue)}.meal.b li:before{color:var(--green)}
-.bonus{margin-top:8px;background:#fff1d6;color:#8a4b00;border-radius:12px;padding:8px 12px;font-weight:700}
-.tick{display:none;position:absolute;top:-14px;right:-8px;background:#e8344a;color:#fff;font-weight:800;border-radius:99px;padding:6px 14px;font-size:18px}
-.meal.sel{transform:scale(1.02)}.meal.a.sel{border-color:var(--blue);box-shadow:0 0 0 5px #1f6fe033}.meal.b.sel{border-color:var(--green);box-shadow:0 0 0 5px #1f9d5533}
-.meal.sel .tick{display:block}
-.note{font-size:15px;color:var(--sub);text-align:center;margin:10px 0 0}
-.go{width:100%;margin-top:14px;border:0;border-radius:18px;background:var(--blue);color:#fff;font:inherit;font-size:24px;font-weight:800;padding:16px;cursor:pointer}
-.go:disabled{background:#9db4d1}
-.msg{margin-top:10px;text-align:center;font-weight:700;font-size:18px;min-height:1.4em}
-.err{color:#d6283c}
-.staff{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.staff b{font-size:19px}.staff p{margin:4px 0 0;color:var(--sub);font-size:17px}
-.done{display:none;text-align:center;padding:30px 10px}
-.done .big{font-size:64px}.done h2{color:var(--green);font-size:30px;margin:6px 0}
-.admin{margin:18px 0 6px;text-align:center}
-.admin button{border:2px dashed var(--line);background:transparent;color:var(--sub);border-radius:12px;padding:8px 16px;font:inherit;cursor:pointer}
-.bar{height:34px;border-radius:99px;background:var(--line);overflow:hidden;margin:8px 0}
-.bar div{height:100%;color:#fff;font-weight:800;display:flex;align-items:center;padding-left:12px;white-space:nowrap;min-width:60px}
+  @import url('https://googleapis.com');
+  :root {
+    --blue: #1565c0;
+    --blue-light: #e3f2fd;
+    --green: #2e7d32;
+    --green-light: #e8f5e9;
+    --yellow: #ffca28;
+  }
+  * { box-sizing: border-box; font-family: 'Noto Sans TC', sans-serif; user-select: none; }
+  body {
+    margin: 0; padding: 10px 14px; min-height: 100vh;
+    background: linear-gradient(180deg, #e1f5fe 0%, #f1f8e9 100%);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .wrap { max-width: 860px; width: 100%; }
+
+  /* 頂部緊湊標題區 */
+  .header { text-align: center; margin-bottom: 10px; }
+  .school-badge {
+    display: inline-block; background: #1565c0; color: #fff;
+    font-size: 20px; font-weight: 900; padding: 7px 24px;
+    border-radius: 50px; margin-bottom: 6px;
+    box-shadow: 0 3px 8px rgba(21,101,192,0.25);
+  }
+  h1 {
+    margin: 2px 0 4px 0; font-size: 32px; font-weight: 900; color: #1565c0;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  h1 span {
+    background: var(--yellow); color: #3e2723; padding: 1px 14px;
+    border-radius: 14px; font-size: 30px;
+  }
+  .sub { font-size: 13px; color: #455a64; font-weight: 700; margin-bottom: 6px; }
+  .time-badge {
+    display: inline-block; background: #ffd54f; color: #3e2723;
+    font-size: 14px; font-weight: 900; padding: 4px 18px; border-radius: 50px;
+  }
+
+  /* 白色卡片區塊 */
+  .card {
+    background: #fff; border-radius: 20px; padding: 12px 18px;
+    margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    border: 1px solid #e0e0e0;
+  }
+  .step {
+    margin: 0 0 8px 0; font-size: 16px; font-weight: 900; color: #1a237e;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .step i {
+    font-style: normal; background: #1976d2; color: #fff;
+    width: 24px; height: 24px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 14px;
+  }
+
+  /* 第一步：班級與座號 */
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 600px) { .row { grid-template-columns: 1fr; gap: 8px; } }
+  select, input {
+    width: 100%; padding: 9px 14px; font-size: 16px; font-weight: 700;
+    border: 2px solid #cfd8dc; border-radius: 12px; background: #fff; color: #263238;
+    outline: none; transition: border-color 0.2s;
+  }
+  select:focus, input:focus { border-color: #1976d2; }
+
+  /* 第二步：雙餐點卡片 */
+  .meals { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 680px) { .meals { grid-template-columns: 1fr; } }
+
+  .meal {
+    display: block; text-align: left; background: #fff;
+    border: 3px solid #e0e0e0; border-radius: 18px; padding: 10px 12px;
+    cursor: pointer; position: relative; transition: all 0.15s;
+  }
+  .meal:hover { transform: translateY(-2px); }
+  .meal.a.sel { border-color: #1976d2; background: #f0f7ff; box-shadow: 0 6px 16px rgba(25,118,210,0.2); }
+  .meal.b.sel { border-color: #2e7d32; background: #f1f8f1; box-shadow: 0 6px 16px rgba(46,125,50,0.2); }
+
+  .tick {
+    display: none; position: absolute; top: 14px; right: 14px; z-index: 5;
+    background: #ffca28; color: #3e2723; font-weight: 900; font-size: 13px;
+    padding: 4px 10px; border-radius: 50px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  .meal.sel .tick { display: inline-block; }
+
+  /* 餐盤圖片裁切視窗 */
+  .meal-img-box {
+    width: 100%; height: 142px; overflow: hidden; border-radius: 12px;
+    margin-bottom: 6px; position: relative;
+  }
+  .meal.a .meal-img-box { border: 2px solid #bbdefb; background: #e3f2fd; }
+  .meal.b .meal-img-box { border: 2px solid #c8e6c9; background: #e8f5e9; }
+
+  .meal h3 { margin: 4px 0; font-size: 18px; font-weight: 900; }
+  .meal.a h3 { color: #1565c0; }
+  .meal.b h3 { color: #2e7d32; }
+
+  .meal ul {
+    margin: 4px 0 6px 0; padding-left: 0; list-style: none;
+    font-size: 13.5px; font-weight: 700; color: #37474f;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px 6px;
+  }
+  .meal ul li::before { content: "✓ "; font-weight: 900; }
+  .meal.a ul li::before { color: #1976d2; }
+  .meal.b ul li::before { color: #2e7d32; }
+
+  .bonus {
+    background: #fff8e1; color: #e65100; font-size: 12.5px; font-weight: 900;
+    padding: 4px 10px; border-radius: 8px; text-align: center; border: 1px solid #ffe082;
+  }
+
+  /* 送出按鈕與訊息 */
+  .go {
+    width: 100%; margin-top: 10px; padding: 12px; font-size: 18px; font-weight: 900;
+    border: none; border-radius: 14px; background: #ff9800; color: #fff;
+    cursor: pointer; box-shadow: 0 4px 0 #ef6c00; transition: all 0.15s;
+  }
+  .go:disabled { background: #cfd8dc; color: #90a4ae; box-shadow: none; cursor: not-allowed; }
+  .go:not(:disabled):active { transform: translateY(2px); box-shadow: 0 2px 0 #ef6c00; }
+  .msg { text-align: center; font-weight: 900; font-size: 15px; margin-top: 6px; color: #1565c0; }
+  .msg.err { color: #d32f2f; }
+
+  /* 投票完成畫面 */
+  #done { display: none; text-align: center; padding: 25px 15px; }
+  #done h2 { color: #2e7d32; font-size: 26px; margin: 0 0 10px 0; }
+  #doneTxt { font-size: 18px; font-weight: 900; color: #37474f; margin-bottom: 18px; }
+
+  /* 管理員開票區 */
+  .admin-area { text-align: center; margin-top: 6px; }
+  .adm-btn {
+    background: transparent; border: 1.5px solid #90a4ae; color: #546e7a;
+    padding: 5px 14px; border-radius: 50px; font-size: 13px; font-weight: 700; cursor: pointer;
+  }
+  #result { display: none; margin-top: 10px; text-align: left; }
+  .bar { background: #eceff1; border-radius: 10px; overflow: hidden; height: 24px; margin: 4px 0 10px 0; }
+  .bar div { height: 100%; color: #fff; font-size: 13px; font-weight: 900; line-height: 24px; padding-left: 10px; }
 </style>
 </head>
 <body>
+
 <div class="wrap">
-  <div class="hero">
-    <div style="display:inline-block; background:#1565c0; color:#fff; font-size:22px; font-weight:800; padding:10px 28px; border-radius:50px; margin-bottom:10px; box-shadow:0 4px 10px rgba(21,101,192,0.25);">國光國小 74th 校慶系列活動</div>
-    <h1>校慶餐點<span>2選1</span></h1>
-    <div>未來・前進 Future 74　🍽️　請點選你最想吃的餐點</div>
-    <div class="when">🗳️ 投票時間：11/17(二) – 11/18(三)　每人一票</div>
+  <div class="header">
+    <div class="school-badge">國光國小 74th 校慶系列活動</div>
+    <h1>校慶餐點 <span>2選1</span></h1>
+    <div class="sub">未來・前進 Future 74 ｜ 請點選你最想吃的餐點</div>
+    <div class="time-badge">🗳️ 投票時間：11/17(二) – 11/18(三)　每人一票</div>
   </div>
 
+  <!-- 投票表單區 -->
   <div id="form">
     <div class="card">
-      <p class="step"><i>1</i>我是幾年幾班、幾號？</p>
+      <p class="step"><i>1</i>我是幾年幾班、幾號？（教職員請選「教職員」）</p>
       <div class="row">
         <select id="cls"></select>
-        <input id="seat" type="number" inputmode="numeric" min="1" max="40" placeholder="座號 例如：15">
+        <input id="seat" type="number" inputmode="numeric" placeholder="座號 例如：15">
       </div>
     </div>
 
     <div class="card">
       <p class="step"><i>2</i>點一下你想吃的餐點</p>
       <div class="meals">
-        <button class="meal a" data-v="A" type="button"><span class="tick">✔ 我選這個</span>
-        <!-- ① 前進世界餐 完整餐盤（無雜字版） -->
-<div style="width:100%; height:175px; overflow:hidden; border-radius:14px; margin-bottom:10px; border:2px solid #bbdefb; background:#e3f2fd;">
-  <img src="banner.jpg" alt="前進世界餐" style="width:188%; max-width:none; margin-left:-4%; margin-top:-63%;">
-</div>
+        <!-- ① 前進世界餐 -->
+        <button class="meal a" data-v="A" type="button">
+          <span class="tick">✓ 我選這個</span>
+          <div class="meal-img-box">
+            <img src="banner.jpg" alt="前進世界餐" style="width:166%; max-width:none; margin-left:-2%; margin-top:-56%;">
+          </div>
           <h3>① 前進世界餐 🌍</h3>
-          <ul><li>墨西哥風肉醬麵</li><li>日式照燒滷雞翅</li><li>奶香玉米餅</li><li>焗烤青花菜</li><li>義式蔬菜湯</li></ul>
-          <div class="bonus">🎁 加菜金：橘子 + 果汁</div></button>
-        <button class="meal b" data-v="B" type="button"><span class="tick">✔ 我選這個</span>
-      <!-- ② 綠色未來餐 完整餐盤（最終完美版） -->
-<div style="width:100%; height:166px; overflow:hidden; border-radius:14px; margin-bottom:10px; border:2px solid #c8e6c9; background:#e8f5e9;">
-  <img src="banner.jpg" alt="綠色未來餐" style="width:188%; max-width:none; margin-left:-87%; margin-top:-122%;">
-</div>
+          <ul>
+            <li>墨西哥風肉醬麵</li>
+            <li>日式照燒滷雞翅</li>
+            <li>奶香玉米餅</li>
+            <li>焗烤青花菜</li>
+            <li>義式蔬菜湯</li>
+          </ul>
+          <div class="bonus">🎁 加菜金：橘子 ＋ 果汁</div>
+        </button>
+
+        <!-- ② 綠色未來餐 -->
+        <button class="meal b" data-v="B" type="button">
+          <span class="tick">✓ 我選這個</span>
+          <div class="meal-img-box">
+            <img src="banner.jpg" alt="綠色未來餐" style="width:166%; max-width:none; margin-left:-68%; margin-top:-108%;">
+          </div>
           <h3>② 綠色未來餐 🌱</h3>
-          <ul><li>霧峰香米炊飯</li><li>香料烤雞腿(洽富)氣冷雞</li><li>梅香炸薯條</li><li>在地鮮菇炒時蔬</li><li>大甲芋頭西米露</li></ul>
-          <div class="bonus">🎁 加菜金：橘子 + 果汁</div></button>
+          <ul>
+            <li>霧峰香米炊飯</li>
+            <li>香料烤雞腿(洽富)氣冷雞</li>
+            <li>梅香炸薯條</li>
+            <li>在地鮮菇炒時蔬</li>
+            <li>大甲芋頭西米露</li>
+          </ul>
+          <div class="bonus">🎁 加菜金：橘子 ＋ 果汁</div>
+        </button>
       </div>
-      <p class="note">※ 照片中的餐點僅為示意圖</p>
-    </div>
 
-    <button class="go" id="go" disabled>確認送出投票</button>
-    <div class="msg" id="msg"></div>
-
-    <div class="card">
-      <p class="step"><i>📱</i>教職員投票方式</p>
-      <div class="staff">
-        <div><b>教職員請掃描海報上的 QR Code 投票（一人一票）</b>
-        <p>📍 投票地點：學務處前走廊</p>
-        <p>🕘 11/17(二) – 11/18(三)</p></div>
-      </div>
-      <p class="note" style="text-align:left">學生請使用班級平板，選好班級、座號與餐點後送出。</p>
+      <button class="go" id="go" disabled>確認送出投票</button>
+      <div class="msg" id="msg"></div>
     </div>
   </div>
 
-  <div class="card done" id="done">
-    <div class="big">🎉</div><h2>投票完成，謝謝你！</h2>
-    <p id="doneTxt" style="font-size:20px"></p>
-    <p class="note">每人限投一票，請把平板交給下一位同學。</p>
-    <button class="go" id="again">下一位同學投票</button>
+  <!-- 投票完成畫面 -->
+  <div class="card" id="done">
+    <h2>🎉 投票完成！謝謝你！</h2>
+    <div id="doneTxt"></div>
+    <button class="go" id="again" style="max-width:300px; margin:0 auto;">下一位同學投票</button>
   </div>
 
-  <div class="admin"><button id="adm">🔒 管理員即時開票</button></div>
-  <div class="card" id="result" style="display:none"></div>
+  <!-- 開票結果區 -->
+  <div class="card" id="result"></div>
+  <div class="admin-area">
+    <button class="adm-btn" id="adm">🔐 管理員即時開票</button>
+  </div>
 </div>
 
 <script>
-const SCRIPT_URL="https://script.google.com/macros/s/AKfycbxBgC1ETfPuIwE5SLWYHQSeu0q-vOa8hXVYDgEAvKCHS-o22_vwBn551QkNzNeImtneTw/exec";
-const ROSTER={一年一班:21,一年二班:20,一年三班:20,一年四班:23,二年一班:27,二年二班:27,二年三班:27,二年四班:27,三年一班:23,三年二班:22,三年三班:24,三年四班:24,四年一班:26,四年二班:25,四年三班:26,四年四班:25,五年一班:25,五年二班:25,五年三班:26,五年四班:24,六年一班:22,六年二班:23,六年三班:23,六年四班:22,六年五班:22};
+const SCRIPT_URL="https://google.com";
+const ROSTER={一年一班:21,一年二班:20,一年三班:20,一年四班:23,二年一班:27,二年二班:27,二年三班:27,二年四班:27,三年一班:23,三年二班:22,三年三班:24,三年四班:24,四年一班:26,四年二班:25,四年三班:26,四年四班:25,五年一班:25,五年二班:25,五年三班:26,五年四班:24,六年一班:22,六年二班:23,六年三班:23,六年四班:22,六年五班:22,教職員:150};
 const $=id=>document.getElementById(id);
 let choice=null,db=null;
 const NAME={A:"① 前進世界餐",B:"② 綠色未來餐"};
 
-$("cls").innerHTML='<option value="">請選擇班級</option>'+Object.keys(ROSTER).map(c=>`<option>${c}</option>`).join("");
+$("cls").innerHTML='<option value="">請選擇班級 / 教職員</option>'+Object.keys(ROSTER).map(c=>`<option>${c}</option>`).join("");
+
+$("cls").addEventListener("change",()=>{
+  $("seat").placeholder = $("cls").value==="教職員" ? "請輸入教師編號" : "座號 例如：15";
+  check();
+});
 
 function check(){$("go").disabled=!($("cls").value&&$("seat").value&&choice)}
 ["cls","seat"].forEach(i=>$(i).addEventListener("input",check));
@@ -135,43 +245,12 @@ function localKey(k){return "kkes74:"+k}
 
 $("go").onclick=async()=>{
   const cn=$("cls").value,s=parseInt($("seat").value,10);
-  if(!(s>=1&&s<=ROSTER[cn])){say(`${cn}的座號是 1～${ROSTER[cn]} 號`,1);return}
+  if(!(s>=1&&s<=ROSTER[cn])){say(`${cn}的號碼範圍是 1～${ROSTER[cn]} 號`,1);return}
   const id=cn+"-"+s;
-  $("go").disabled=true;say("送出中…");
+  $("go").disabled=true;say("選票傳送中，請稍候…");
   try{
     if(SCRIPT_URL){
       const r=await (await fetch(SCRIPT_URL+"?cls="+encodeURIComponent(cn)+"&seat="+s+"&choice="+choice)).json();
       if(!r.ok){say(r.msg||"送出失敗",1);$("go").disabled=false;return}
     }else{
-      if(localStorage.getItem(localKey(id))){say("這個座號已經投過票囉！",1);$("go").disabled=false;return}
-      localStorage.setItem(localKey(id),choice);
-    }
-  }catch(e){say("送出失敗，請再按一次或請老師協助",1);$("go").disabled=false;return}
-  $("doneTxt").textContent=`${cn} ${s}號　你選了「${NAME[choice]}」`;
-  $("form").style.display="none";
-  $("done").style.display="block";
-  $("done").scrollIntoView({behavior:"smooth",block:"center"});
-};
-
-$("again").onclick=()=>{
-  choice=null;$("seat").value="";document.querySelectorAll(".meal").forEach(x=>x.classList.remove("sel"));
-  say("");check();
-  $("done").style.display="none";
-  $("form").style.display="block";
-  $("cls").scrollIntoView({behavior:"auto",block:"center"});
-};
-$("adm").onclick=async()=>{
-  const pw=prompt("請輸入管理員密碼");if(!pw)return;
-  let a=0,b=0;
-  try{const r=await (await fetch(SCRIPT_URL+"?action=count&pw="+encodeURIComponent(pw))).json();
-  if(!r.ok){alert(r.msg||"無法開票");return}a=r.a;b=r.b}catch(e){alert("無法連線，請確認 SCRIPT_URL");return}
-  const t=a+b||1,r=$("result");r.style.display="block";
-  r.innerHTML=`<p class="step">📊 即時開票（共 ${a+b} 票）</p>
-  <b>① 前進世界餐　${a} 票</b><div class="bar"><div style="width:${a/t*100}%;background:var(--blue)">${Math.round(a/t*100)}%</div></div>
-  <b>② 綠色未來餐　${b} 票</b><div class="bar"><div style="width:${b/t*100}%;background:var(--green)">${Math.round(b/t*100)}%</div></div>`;
-  r.scrollIntoView({behavior:"smooth",block:"center"});
-};
-</script>
-</body>
-</html>
-
+      if(localStorage.getItem(localKey(id))){say("這個號碼已經投過票囉！",1);$("go").disabled=false;return}
