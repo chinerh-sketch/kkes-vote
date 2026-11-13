@@ -151,9 +151,8 @@ $("again").onclick=()=>{
   say("");check();
   $("done").style.display="none";
   $("form").style.display="block";
-  $("form").scrollIntoView({behavior:"smooth",block:"start"});
+  $("cls").scrollIntoView({behavior:"auto",block:"center"});
 };
-
 $("adm").onclick=async()=>{
   const pw=prompt("請輸入管理員密碼");if(!pw)return;
   let a=0,b=0;
