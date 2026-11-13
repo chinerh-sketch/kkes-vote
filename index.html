@@ -6,135 +6,48 @@
 <title>國光國小 74th 校慶餐點 2選1</title>
 <style>
   @import url('https://googleapis.com');
-  :root {
-    --blue: #1565c0;
-    --green: #2e7d32;
-    --yellow: #ffca28;
-  }
   * { box-sizing: border-box; font-family: 'Noto Sans TC', sans-serif; }
-  body {
-    margin: 0; padding: 10px 14px; min-height: 100vh;
-    background: linear-gradient(180deg, #e1f5fe 0%, #f1f8e9 100%);
-    display: flex; flex-direction: column; align-items: center;
-  }
+  body { margin: 0; padding: 10px 14px; min-height: 100vh; background: linear-gradient(180deg, #e1f5fe 0%, #f1f8e9 100%); display: flex; flex-direction: column; align-items: center; }
   .wrap { max-width: 860px; width: 100%; }
-
-  /* 頂部緊湊標題區 */
   .header { text-align: center; margin-bottom: 10px; }
-  .school-badge {
-    display: inline-block; background: #1565c0; color: #fff;
-    font-size: 20px; font-weight: 900; padding: 7px 24px;
-    border-radius: 50px; margin-bottom: 6px;
-    box-shadow: 0 3px 8px rgba(21,101,192,0.25);
-  }
-  h1 {
-    margin: 2px 0 4px 0; font-size: 32px; font-weight: 900; color: #1565c0;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-  }
-  h1 span {
-    background: var(--yellow); color: #3e2723; padding: 1px 14px;
-    border-radius: 14px; font-size: 30px;
-  }
+  .school-badge { display: inline-block; background: #1565c0; color: #fff; font-size: 20px; font-weight: 900; padding: 7px 24px; border-radius: 50px; margin-bottom: 6px; }
+  h1 { margin: 2px 0 4px 0; font-size: 32px; font-weight: 900; color: #1565c0; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  h1 span { background: #ffca28; color: #3e2723; padding: 1px 14px; border-radius: 14px; font-size: 30px; }
   .sub { font-size: 13px; color: #455a64; font-weight: 700; margin-bottom: 6px; }
-  .time-badge {
-    display: inline-block; background: #ffd54f; color: #3e2723;
-    font-size: 14px; font-weight: 900; padding: 4px 18px; border-radius: 50px;
-  }
-
-  /* 白色卡片區塊 */
-  .card {
-    background: #fff; border-radius: 20px; padding: 12px 18px;
-    margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-    border: 1px solid #e0e0e0;
-  }
-  .step {
-    margin: 0 0 8px 0; font-size: 16px; font-weight: 900; color: #1a237e;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .step i {
-    font-style: normal; background: #1976d2; color: #fff;
-    width: 24px; height: 24px; border-radius: 50%;
-    display: inline-flex; align-items: center; justify-content: center; font-size: 14px;
-  }
-
-  /* 第一步：班級與座號 */
+  .time-badge { display: inline-block; background: #ffd54f; color: #3e2723; font-size: 14px; font-weight: 900; padding: 4px 18px; border-radius: 50px; }
+  .card { background: #fff; border-radius: 20px; padding: 12px 18px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border: 1px solid #e0e0e0; }
+  .step { margin: 0 0 8px 0; font-size: 16px; font-weight: 900; color: #1a237e; display: flex; align-items: center; gap: 8px; }
+  .step i { font-style: normal; background: #1976d2; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; }
   .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media (max-width: 600px) { .row { grid-template-columns: 1fr; gap: 8px; } }
-  select, input {
-    width: 100%; padding: 9px 14px; font-size: 16px; font-weight: 700;
-    border: 2px solid #cfd8dc; border-radius: 12px; background: #fff; color: #263238;
-    outline: none; transition: border-color 0.2s;
-  }
-  select:focus, input:focus { border-color: #1976d2; }
-
-  /* 第二步：雙餐點卡片 */
+  select, input { width: 100%; padding: 9px 14px; font-size: 16px; font-weight: 700; border: 2px solid #cfd8dc; border-radius: 12px; background: #fff; color: #263238; }
   .meals { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   @media (max-width: 680px) { .meals { grid-template-columns: 1fr; } }
-
-  .meal {
-    display: block; text-align: left; background: #fff;
-    border: 3px solid #e0e0e0; border-radius: 18px; padding: 10px 12px;
-    cursor: pointer; position: relative; transition: all 0.15s;
-  }
-  .meal:hover { transform: translateY(-2px); }
-  .meal.a.sel { border-color: #1976d2; background: #f0f7ff; box-shadow: 0 6px 16px rgba(25,118,210,0.2); }
-  .meal.b.sel { border-color: #2e7d32; background: #f1f8f1; box-shadow: 0 6px 16px rgba(46,125,50,0.2); }
-
-  .tick {
-    display: none; position: absolute; top: 14px; right: 14px; z-index: 5;
-    background: #ffca28; color: #3e2723; font-weight: 900; font-size: 13px;
-    padding: 4px 10px; border-radius: 50px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  }
+  .meal { display: block; text-align: left; background: #fff; border: 3px solid #e0e0e0; border-radius: 18px; padding: 10px 12px; cursor: pointer; position: relative; touch-action: manipulation; }
+  .meal.a.sel { border-color: #1976d2; background: #f0f7ff; box-shadow: 0 6px 16px rgba(25,118,210,0.25); }
+  .meal.b.sel { border-color: #2e7d32; background: #f1f8f1; box-shadow: 0 6px 16px rgba(46,125,50,0.25); }
+  .tick { display: none; position: absolute; top: 14px; right: 14px; z-index: 5; background: #ffca28; color: #3e2723; font-weight: 900; font-size: 14px; padding: 5px 12px; border-radius: 50px; box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
   .meal.sel .tick { display: inline-block; }
-
-  /* 餐盤圖片裁切視窗 */
-  .meal-img-box {
-    width: 100%; height: 142px; overflow: hidden; border-radius: 12px;
-    margin-bottom: 6px; position: relative;
-  }
+  .meal-img-box { width: 100%; height: 142px; overflow: hidden; border-radius: 12px; margin-bottom: 6px; position: relative; pointer-events: none; }
   .meal.a .meal-img-box { border: 2px solid #bbdefb; background: #e3f2fd; }
   .meal.b .meal-img-box { border: 2px solid #c8e6c9; background: #e8f5e9; }
-
-  .meal h3 { margin: 4px 0; font-size: 18px; font-weight: 900; }
+  .meal h3 { margin: 4px 0; font-size: 18px; font-weight: 900; pointer-events: none; }
   .meal.a h3 { color: #1565c0; }
   .meal.b h3 { color: #2e7d32; }
-
-  .meal ul {
-    margin: 4px 0 6px 0; padding-left: 0; list-style: none;
-    font-size: 13.5px; font-weight: 700; color: #37474f;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 2px 6px;
-  }
+  .meal ul { margin: 4px 0 6px 0; padding-left: 0; list-style: none; font-size: 13.5px; font-weight: 700; color: #37474f; display: grid; grid-template-columns: 1fr 1fr; gap: 2px 6px; pointer-events: none; }
   .meal ul li::before { content: "✓ "; font-weight: 900; }
   .meal.a ul li::before { color: #1976d2; }
   .meal.b ul li::before { color: #2e7d32; }
-
-  .bonus {
-    background: #fff8e1; color: #e65100; font-size: 12.5px; font-weight: 900;
-    padding: 4px 10px; border-radius: 8px; text-align: center; border: 1px solid #ffe082;
-  }
-
-  /* 送出按鈕與訊息 */
-  .go {
-    width: 100%; margin-top: 10px; padding: 12px; font-size: 18px; font-weight: 900;
-    border: none; border-radius: 14px; background: #ff9800; color: #fff;
-    cursor: pointer; box-shadow: 0 4px 0 #ef6c00; transition: all 0.15s;
-  }
+  .bonus { background: #fff8e1; color: #e65100; font-size: 12.5px; font-weight: 900; padding: 4px 10px; border-radius: 8px; text-align: center; border: 1px solid #ffe082; pointer-events: none; }
+  .go { width: 100%; margin-top: 10px; padding: 12px; font-size: 18px; font-weight: 900; border: none; border-radius: 14px; background: #ff9800; color: #fff; cursor: pointer; box-shadow: 0 4px 0 #ef6c00; }
   .go:disabled { background: #cfd8dc; color: #90a4ae; box-shadow: none; cursor: not-allowed; }
-  .go:not(:disabled):active { transform: translateY(2px); box-shadow: 0 2px 0 #ef6c00; }
   .msg { text-align: center; font-weight: 900; font-size: 15px; margin-top: 6px; color: #1565c0; }
   .msg.err { color: #d32f2f; }
-
-  /* 投票完成畫面 */
   #done { display: none; text-align: center; padding: 25px 15px; }
   #done h2 { color: #2e7d32; font-size: 26px; margin: 0 0 10px 0; }
   #doneTxt { font-size: 18px; font-weight: 900; color: #37474f; margin-bottom: 18px; }
-
-  /* 管理員開票區 */
   .admin-area { text-align: center; margin-top: 6px; }
-  .adm-btn {
-    background: transparent; border: 1.5px solid #90a4ae; color: #546e7a;
-    padding: 5px 14px; border-radius: 50px; font-size: 13px; font-weight: 700; cursor: pointer;
-  }
+  .adm-btn { background: transparent; border: 1.5px solid #90a4ae; color: #546e7a; padding: 5px 14px; border-radius: 50px; font-size: 13px; font-weight: 700; cursor: pointer; }
   #result { display: none; margin-top: 10px; text-align: left; }
   .bar { background: #eceff1; border-radius: 10px; overflow: hidden; height: 24px; margin: 4px 0 10px 0; }
   .bar div { height: 100%; color: #fff; font-size: 13px; font-weight: 900; line-height: 24px; padding-left: 10px; }
@@ -150,49 +63,28 @@
     <div class="time-badge">🗳️ 投票時間：11/17(二) – 11/18(三)　每人一票</div>
   </div>
 
-  <!-- 投票表單區 -->
   <div id="form">
     <div class="card">
       <p class="step"><i>1</i>我是幾年幾班、幾號？（教職員請選「教職員」）</p>
       <div class="row">
-        <select id="cls">
+        <select id="cls" onchange="onClsChange()">
           <option value="">請選擇班級 / 教職員</option>
-          <option value="一年一班">一年一班</option>
-          <option value="一年二班">一年二班</option>
-          <option value="一年三班">一年三班</option>
-          <option value="一年四班">一年四班</option>
-          <option value="二年一班">二年一班</option>
-          <option value="二年二班">二年二班</option>
-          <option value="二年三班">二年三班</option>
-          <option value="二年四班">二年四班</option>
-          <option value="三年一班">三年一班</option>
-          <option value="三年二班">三年二班</option>
-          <option value="三年三班">三年三班</option>
-          <option value="三年四班">三年四班</option>
-          <option value="四年一班">四年一班</option>
-          <option value="四年二班">四年二班</option>
-          <option value="四年三班">四年三班</option>
-          <option value="四年四班">四年四班</option>
-          <option value="五年一班">五年一班</option>
-          <option value="五年二班">五年二班</option>
-          <option value="五年三班">五年三班</option>
-          <option value="五年四班">五年四班</option>
-          <option value="六年一班">六年一班</option>
-          <option value="六年二班">六年二班</option>
-          <option value="六年三班">六年三班</option>
-          <option value="六年四班">六年四班</option>
-          <option value="六年五班">六年五班</option>
+          <option value="一年一班">一年一班</option><option value="一年二班">一年二班</option><option value="一年三班">一年三班</option><option value="一年四班">一年四班</option>
+          <option value="二年一班">二年一班</option><option value="二年二班">二年二班</option><option value="二年三班">二年三班</option><option value="二年四班">二年四班</option>
+          <option value="三年一班">三年一班</option><option value="三年二班">三年二班</option><option value="三年三班">三年三班</option><option value="三年四班">三年四班</option>
+          <option value="四年一班">四年一班</option><option value="四年二班">四年二班</option><option value="四年三班">四年三班</option><option value="四年四班">四年四班</option>
+          <option value="五年一班">五年一班</option><option value="五年二班">五年二班</option><option value="五年三班">五年三班</option><option value="五年四班">五年四班</option>
+          <option value="六年一班">六年一班</option><option value="六年二班">六年二班</option><option value="六年三班">六年三班</option><option value="六年四班">六年四班</option><option value="六年五班">六年五班</option>
           <option value="教職員">教職員</option>
         </select>
-        <input id="seat" type="number" inputmode="numeric" placeholder="座號 例如：15">
+        <input id="seat" type="number" inputmode="numeric" placeholder="座號 例如：15" oninput="checkForm()">
       </div>
     </div>
 
     <div class="card">
       <p class="step"><i>2</i>點一下你想吃的餐點</p>
       <div class="meals">
-        <!-- ① 前進世界餐（已移除右側藍色打勾記號） -->
-        <button class="meal a" data-v="A" type="button">
+        <div class="meal a" id="btnA" onclick="pickMeal('A')">
           <span class="tick">✓ 我選這個</span>
           <div class="meal-img-box">
             <img src="banner.jpg" alt="前進世界餐" style="width:176%; max-width:none; margin-left:-3%; margin-top:-60%;">
@@ -200,17 +92,12 @@
           </div>
           <h3>① 前進世界餐 🌍</h3>
           <ul>
-            <li>墨西哥風肉醬麵</li>
-            <li>日式照燒滷雞翅</li>
-            <li>奶香玉米餅</li>
-            <li>焗烤青花菜</li>
-            <li>義式蔬菜湯</li>
+            <li>墨西哥風肉醬麵</li><li>日式照燒滷雞翅</li><li>奶香玉米餅</li><li>焗烤青花菜</li><li>義式蔬菜湯</li>
           </ul>
           <div class="bonus">🎁 加菜金：橘子 ＋ 果汁</div>
-        </button>
+        </div>
 
-        <!-- ② 綠色未來餐（已移除左側橘色加菜金小圖） -->
-        <button class="meal b" data-v="B" type="button">
+        <div class="meal b" id="btnB" onclick="pickMeal('B')">
           <span class="tick">✓ 我選這個</span>
           <div class="meal-img-box">
             <img src="banner.jpg" alt="綠色未來餐" style="width:176%; max-width:none; margin-left:-77%; margin-top:-114%;">
@@ -218,37 +105,58 @@
           </div>
           <h3>② 綠色未來餐 🌱</h3>
           <ul>
-            <li>霧峰香米炊飯</li>
-            <li>香料烤雞腿(洽富)氣冷雞</li>
-            <li>梅香炸薯條</li>
-            <li>在地鮮菇炒時蔬</li>
-            <li>大甲芋頭西米露</li>
+            <li>霧峰香米炊飯</li><li>香料烤雞腿(洽富)氣冷雞</li><li>梅香炸薯條</li><li>在地鮮菇炒時蔬</li><li>大甲芋頭西米露</li>
           </ul>
           <div class="bonus">🎁 加菜金：橘子 ＋ 果汁</div>
-        </button>
+        </div>
       </div>
 
-      <button class="go" id="go" disabled>確認送出投票</button>
+      <button class="go" id="go" type="button" disabled onclick="sendVote()">確認送出投票</button>
       <div class="msg" id="msg"></div>
     </div>
   </div>
 
-  <!-- 投票完成畫面 -->
   <div class="card" id="done">
     <h2>🎉 投票完成！謝謝你！</h2>
     <div id="doneTxt"></div>
-    <button class="go" id="again" style="max-width:300px; margin:0 auto;">下一位同學投票</button>
+    <button class="go" type="button" onclick="nextVoter()" style="max-width:300px; margin:0 auto;">下一位同學投票</button>
   </div>
 
-  <!-- 開票結果區 -->
   <div class="card" id="result"></div>
   <div class="admin-area">
-    <button class="adm-btn" id="adm">🔐 管理員即時開票</button>
+    <button class="adm-btn" type="button" onclick="openAdmin()">🔐 管理員即時開票</button>
   </div>
 </div>
 
 <script>
 const SCRIPT_URL = "https://google.com";
-const ROSTER = {
-  "一年一班": 21, "一年二班": 20, "一年三班": 20, "一年四班": 23,
-  "二年一班": 27, "二年二班": 27, "二年三班": 27, "二年四班": 27,
+const ROSTER = {"一年一班":21,"一年二班":20,"一年三班":20,"一年四班":23,"二年一班":27,"二年二班":27,"二年三班":27,"二年四班":27,"三年一班":23,"三年二班":22,"三年三班":24,"三年四班":24,"四年一班":26,"四年二班":25,"四年三班":26,"四年四班":25,"五年一班":25,"五年二班":25,"五年三班":26,"五年四班":24,"六年一班":22,"六年二班":23,"六年三班":23,"六年四班":22,"六年五班":22,"教職員":150};
+const NAME = {"A":"① 前進世界餐","B":"② 綠色未來餐"};
+let choice = null;
+
+function onClsChange() {
+  const c = document.getElementById("cls").value;
+  document.getElementById("seat").placeholder = (c === "教職員") ? "請輸入教師編號" : "座號 例如：15";
+  checkForm();
+}
+
+function pickMeal(v) {
+  choice = v;
+  document.getElementById("btnA").classList.toggle("sel", v === "A");
+  document.getElementById("btnB").classList.toggle("sel", v === "B");
+  checkForm();
+}
+
+function checkForm() {
+  const c = document.getElementById("cls").value;
+  const s = document.getElementById("seat").value;
+  document.getElementById("go").disabled = !(c && s && choice);
+}
+
+function showMsg(t, isErr) {
+  const m = document.getElementById("msg");
+  m.textContent = t;
+  m.className = "msg" + (isErr ? " err" : "");
+}
+
+async function sendVote() {
