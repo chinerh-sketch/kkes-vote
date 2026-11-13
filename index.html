@@ -191,11 +191,12 @@
     <div class="card">
       <p class="step"><i>2</i>點一下你想吃的餐點</p>
       <div class="meals">
-        <!-- ① 前進世界餐 -->
+        <!-- ① 前進世界餐（已移除右側藍色打勾記號） -->
         <button class="meal a" data-v="A" type="button">
           <span class="tick">✓ 我選這個</span>
           <div class="meal-img-box">
             <img src="banner.jpg" alt="前進世界餐" style="width:176%; max-width:none; margin-left:-3%; margin-top:-60%;">
+            <div style="position:absolute; top:0; right:0; width:28px; height:100%; background:linear-gradient(90deg, rgba(227,242,253,0) 0%, #e3f2fd 45%);"></div>
           </div>
           <h3>① 前進世界餐 🌍</h3>
           <ul>
@@ -208,11 +209,12 @@
           <div class="bonus">🎁 加菜金：橘子 ＋ 果汁</div>
         </button>
 
-        <!-- ② 綠色未來餐 -->
+        <!-- ② 綠色未來餐（已移除左側橘色加菜金小圖） -->
         <button class="meal b" data-v="B" type="button">
           <span class="tick">✓ 我選這個</span>
           <div class="meal-img-box">
             <img src="banner.jpg" alt="綠色未來餐" style="width:176%; max-width:none; margin-left:-77%; margin-top:-114%;">
+            <div style="position:absolute; bottom:0; left:0; width:34px; height:65%; background:linear-gradient(270deg, rgba(232,245,233,0) 0%, #e8f5e9 55%); border-top-right-radius:12px;"></div>
           </div>
           <h3>② 綠色未來餐 🌱</h3>
           <ul>
@@ -250,15 +252,3 @@ const SCRIPT_URL = "https://google.com";
 const ROSTER = {
   "一年一班": 21, "一年二班": 20, "一年三班": 20, "一年四班": 23,
   "二年一班": 27, "二年二班": 27, "二年三班": 27, "二年四班": 27,
-  "三年一班": 23, "三年二班": 22, "三年三班": 24, "三年四班": 24,
-  "四年一班": 26, "四年二班": 25, "四年三班": 26, "四年四班": 25,
-  "五年一班": 25, "五年二班": 25, "五年三班": 26, "五年四班": 24,
-  "六年一班": 22, "六年二班": 23, "六年三班": 23, "六年四班": 22, "六年五班": 22,
-  "教職員": 150
-};
-const NAME = { "A": "① 前進世界餐", "B": "② 綠色未來餐" };
-let choice = null;
-
-function $(id) { return document.getElementById(id); }
-
-$("cls").addEventListener("change", function() {
