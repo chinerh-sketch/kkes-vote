@@ -217,13 +217,76 @@ function onClsChange() {
 }
 
 function pickMeal(v) {
-  choice = v;
-  document.getElementById("btnA").classList.toggle("sel", v === "A");
-  document.getElementById("btnB").classList.toggle("sel", v === "B");
-  checkForm();
+  function checkForm() {
+  const c = document.getElementById("cls").value;
+  const s = document.getElementById("seat").value;
+  document.getElementById("go").disabled = !(c && s && choice);
 }
 
-function checkForm() {
+function showMsg(t, isErr) {
+  const m = document.getElementById("msg");
+  m.textContent = t;
+  m.className = "msg" + (isErr ? " err" : "");
+}
+
+async function sendVote() {
+  const cn = document.getElementById("cls").value;
+  const s = parseInt(document.getElementById("seat").value, 10);
+  if (!(s >= 1 && s <= ROSTER[cn])) {
+    showMsg(cn + "的號碼範圍是 1～" + ROSTER[cn] + " 號", true);
+    return;
+  }
+  document.getElementById("go").disabled = true;
+  showMsg("選票傳送中，請稍候…", false);
+  try {
+    const res = await fetch(SCRIPT_URL + "?cls=" + encodeURIComponent(cn) + "&seat=" + s + "&choice=" + choice);
+    const r = await res.json();
+    if (!r.ok) {
+      showMsg(r.msg || "送出失敗", true);
+      document.getElementById("go").disabled = false;
+      return;
+    }
+  } catch (e) {
+    showMsg("送出失敗，請再按一次或請老師協助", true);
+    document.getElementById("go").disabled = false;
+    return;
+  }
+  document.getElementById("doneTxt").textContent = cn + " " + s + "號　你選了「" + NAME[choice] + "」";
+  document.getElementById("form").style.display = "none";
+  document.getElementById("done").style.display = "block";
+  document.getElementById("done").scrollIntoView({behavior:"auto", block:"center"});
+}
+
+function nextVoter() {
+  choice = null;
+  document.getElementById("seat").value = "";
+  document.getElementById("btnA").classList.remove("sel");
+  document.getElementById("btnB").classList.remove("sel");
+  showMsg("", false);
+  checkForm();
+  document.getElementById("done").style.display = "none";
+  document.getElementById("form").style.display = "block";
+  document.getElementById("cls").scrollIntoView({behavior:"auto", block:"center"});
+}
+
+async function openAdmin() {
+  const pw = prompt("請輸入管理員密碼");
+  if (!pw) return;
+  let a = 0, b = 0;
+  try {
+    const res = await fetch(SCRIPT_URL + "?action=count&pw=" + encodeURIComponent(pw));
+    const r = await res.json();
+    if (!r.ok) { alert(r.msg || "無法開票"); return; }
+    a = r.a; b = r.b;
+  } catch (e) { alert("無法連線，請確認網路狀態"); return; }
+  const t = (a + b) || 1;
+  const box = document.getElementById("result");
+  box.style.display = "block";
+  box.innerHTML = '<p class="step">📊 即時開票結果（共 ' + (a + b) + ' 票）</p>' +
+    '<b>① 前進世界餐　' + a + ' 票</b><div class="bar"><div style="width:' + (a/t*100) + '%;background:#1565c0">' + Math.round(a/t*100) + '%</div></div>' +
+    '<b>② 綠色未來餐　' + b + ' 票</b><div class="bar"><div style="width:' + (b/t*100) + '%;background:#2e7d32">' + Math.round(b/t*100) + '%</div></div>';
+  box.scrollIntoView({behavior:"smooth", block:"center"});
+}
 </script>
 </body>
 </html>
