@@ -118,7 +118,7 @@ select,input{font:inherit;font-size:20px;padding:12px;border-radius:14px;border:
 
   <div class="card done" id="done">
     <div class="big">🎉</div><h2>投票完成，謝謝你！</h2>
-    <p id="doneTxt" style="font-size:20px"></p>
+    <p id="doneTxt" style="font-size:22px;line-height:1.9;white-space:pre-line;font-weight:700"></p>
     <p class="note">每人限投一票，請把平板交給下一位同學。</p>
     <button class="go" id="again">下一位同學投票</button>
   </div>
@@ -159,7 +159,7 @@ $("go").onclick=async()=>{
       localStorage.setItem(localKey(id),choice);
     }
   }catch(e){say("送出失敗，請再按一次或請老師協助",1);$("go").disabled=false;return}
-  $("doneTxt").textContent=`${cn} ${s}號　你選了「${NAME[choice]}」`;
+  $("doneTxt").textContent=`${cn} ${s}號　\n你選了「${NAME[choice]}」`;
   $("form").style.display="none";$("done").style.display="block";window.scrollTo(0,0);
 };
 $("again").onclick=()=>{
