@@ -215,8 +215,12 @@ function onClsChange() {
   document.getElementById("seat").placeholder = (c === "教職員") ? "請輸入教師編號" : "座號 例如：15";
   checkForm();
 }
-
-function pickMeal(v) {
+  function pickMeal(v) {
+  choice = v;
+  document.getElementById("btnA").classList.toggle("sel", v === "A");
+  document.getElementById("btnB").classList.toggle("sel", v === "B");
+  checkForm();
+}
   function checkForm() {
   const c = document.getElementById("cls").value;
   const s = document.getElementById("seat").value;
