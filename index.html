@@ -77,9 +77,9 @@
   }
   .meal.sel .tick { display: inline-block; }
 
-  /* 核心修正：採用黃金比例 aspect-ratio，手機與平板永遠完美貼合餐盤、絕不露雜字 */
+  /* 核心修正：16 / 8.2 黃金比例，手機與平板永遠完美貼合餐盤、底部零雜字 */
   .meal-img-box {
-    width: 100%; aspect-ratio: 16 / 9.2; overflow: hidden; border-radius: 12px;
+    width: 100%; aspect-ratio: 16 / 8.2; overflow: hidden; border-radius: 12px;
     margin-bottom: 8px; position: relative; pointer-events: none;
   }
   .meal.a .meal-img-box { border: 2px solid #bbdefb; background: #e3f2fd; }
@@ -164,7 +164,7 @@
         <div class="meal a" id="btnA" onclick="pickMeal('A')">
           <span class="tick">✓ 我選這個</span>
           <div class="meal-img-box">
-            <img src="banner.jpg" alt="前進世界餐" style="width:184%; max-width:none; margin-left:-4%; margin-top:-63%;">
+            <img src="banner.jpg" alt="前進世界餐" style="width:184%; max-width:none; margin-left:-4%; margin-top:-66%;">
           </div>
           <h3>① 前進世界餐 🌍</h3>
           <ul>
@@ -177,7 +177,7 @@
         <div class="meal b" id="btnB" onclick="pickMeal('B')">
           <span class="tick">✓ 我選這個</span>
           <div class="meal-img-box">
-            <img src="banner.jpg" alt="綠色未來餐" style="width:184%; max-width:none; margin-left:-84%; margin-top:-120%;">
+            <img src="banner.jpg" alt="綠色未來餐" style="width:184%; max-width:none; margin-left:-84%; margin-top:-124%;">
           </div>
           <h3>② 綠色未來餐 🌱</h3>
           <ul>
