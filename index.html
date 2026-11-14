@@ -242,8 +242,9 @@ async function sendVote() {
   }
   document.getElementById("go").disabled = true;
   showMsg("選票傳送中，請稍候…", false);
+  const url = SCRIPT_URL + "?cls=" + encodeURIComponent(cn) + "&seat=" + s + "&choice=" + choice;
   try {
-    const res = await fetch(SCRIPT_URL + "?cls=" + encodeURIComponent(cn) + "&seat=" + s + "&choice=" + choice);
+    const res = await fetch(url);
     const r = await res.json();
     if (!r.ok) {
       showMsg(r.msg || "送出失敗", true);
@@ -251,9 +252,14 @@ async function sendVote() {
       return;
     }
   } catch (e) {
-    showMsg("送出失敗，請再按一次或請老師協助", true);
-    document.getElementById("go").disabled = false;
-    return;
+    // 若手機瀏覽器擋住回傳讀取，改用背景直傳模式確保寫入試算表
+    try {
+      await fetch(url, { mode: "no-cors" });
+    } catch (err) {
+      showMsg("網路連線異常，請檢查手機網路後再試一次", true);
+      document.getElementById("go").disabled = false;
+      return;
+    }
   }
   document.getElementById("doneTxt").textContent = cn + " " + s + "號　你選了「" + NAME[choice] + "」";
   document.getElementById("form").style.display = "none";
@@ -261,17 +267,6 @@ async function sendVote() {
   document.getElementById("done").scrollIntoView({behavior:"auto", block:"center"});
 }
 
-function nextVoter() {
-  choice = null;
-  document.getElementById("seat").value = "";
-  document.getElementById("btnA").classList.remove("sel");
-  document.getElementById("btnB").classList.remove("sel");
-  showMsg("", false);
-  checkForm();
-  document.getElementById("done").style.display = "none";
-  document.getElementById("form").style.display = "block";
-  document.getElementById("cls").scrollIntoView({behavior:"auto", block:"center"});
-}
 
 async function openAdmin() {
   const pw = prompt("請輸入管理員密碼");
