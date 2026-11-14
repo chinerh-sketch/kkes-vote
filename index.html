@@ -2,52 +2,128 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>國光國小 74th 校慶餐點 2選1</title>
 <style>
   @import url('https://googleapis.com');
-  * { box-sizing: border-box; font-family: 'Noto Sans TC', sans-serif; }
-  body { margin: 0; padding: 10px 14px; min-height: 100vh; background: linear-gradient(180deg, #e1f5fe 0%, #f1f8e9 100%); display: flex; flex-direction: column; align-items: center; }
-  .wrap { max-width: 860px; width: 100%; }
+  * { box-sizing: border-box; font-family: 'Noto Sans TC', sans-serif; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0; padding: 10px 14px; min-height: 100vh;
+    background: linear-gradient(180deg, #e1f5fe 0%, #f1f8e9 100%);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .wrap { max-width: 880px; width: 100%; }
+
+  /* 頂部標題區（自動適應手機與平板字級） */
   .header { text-align: center; margin-bottom: 10px; }
-  .school-badge { display: inline-block; background: #1565c0; color: #fff; font-size: 20px; font-weight: 900; padding: 7px 24px; border-radius: 50px; margin-bottom: 6px; }
-  h1 { margin: 2px 0 4px 0; font-size: 32px; font-weight: 900; color: #1565c0; display: flex; align-items: center; justify-content: center; gap: 8px; }
-  h1 span { background: #ffca28; color: #3e2723; padding: 1px 14px; border-radius: 14px; font-size: 30px; }
+  .school-badge {
+    display: inline-block; background: #1565c0; color: #fff;
+    font-size: clamp(16px, 4vw, 20px); font-weight: 900; padding: 6px 22px;
+    border-radius: 50px; margin-bottom: 6px;
+  }
+  h1 {
+    margin: 2px 0 4px 0; font-size: clamp(26px, 6vw, 32px); font-weight: 900; color: #1565c0;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  h1 span {
+    background: #ffca28; color: #3e2723; padding: 1px 12px;
+    border-radius: 12px; font-size: clamp(24px, 5.5vw, 30px);
+  }
   .sub { font-size: 13px; color: #455a64; font-weight: 700; margin-bottom: 6px; }
-  .time-badge { display: inline-block; background: #ffd54f; color: #3e2723; font-size: 14px; font-weight: 900; padding: 4px 18px; border-radius: 50px; }
-  .card { background: #fff; border-radius: 20px; padding: 12px 18px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border: 1px solid #e0e0e0; }
-  .step { margin: 0 0 8px 0; font-size: 16px; font-weight: 900; color: #1a237e; display: flex; align-items: center; gap: 8px; }
-  .step i { font-style: normal; background: #1976d2; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; }
-  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  @media (max-width: 600px) { .row { grid-template-columns: 1fr; gap: 8px; } }
-  select, input { width: 100%; padding: 9px 14px; font-size: 16px; font-weight: 700; border: 2px solid #cfd8dc; border-radius: 12px; background: #fff; color: #263238; }
+  .time-badge {
+    display: inline-block; background: #ffd54f; color: #3e2723;
+    font-size: 13.5px; font-weight: 900; padding: 4px 16px; border-radius: 50px;
+  }
+
+  /* 白色卡片區塊 */
+  .card {
+    background: #fff; border-radius: 20px; padding: 12px 16px;
+    margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border: 1px solid #e0e0e0;
+  }
+  .step {
+    margin: 0 0 8px 0; font-size: 15.5px; font-weight: 900; color: #1a237e;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .step i {
+    font-style: normal; background: #1976d2; color: #fff;
+    width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 14px;
+  }
+
+  /* 第一步：平板並排、手機上下排列 */
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px) { .row { grid-template-columns: 1fr; gap: 8px; } }
+  select, input {
+    width: 100%; padding: 10px 14px; font-size: 16px; font-weight: 700;
+    border: 2px solid #cfd8dc; border-radius: 12px; background: #fff; color: #263238;
+  }
+
+  /* 第二步：平板左右雙欄、手機上下單欄 */
   .meals { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  @media (max-width: 680px) { .meals { grid-template-columns: 1fr; } }
-  .meal { display: block; text-align: left; background: #fff; border: 3px solid #e0e0e0; border-radius: 18px; padding: 10px 12px; cursor: pointer; position: relative; touch-action: manipulation; }
+  @media (max-width: 640px) { .meals { grid-template-columns: 1fr; gap: 12px; } }
+
+  .meal {
+    display: block; text-align: left; background: #fff;
+    border: 3px solid #e0e0e0; border-radius: 18px; padding: 10px 12px;
+    cursor: pointer; position: relative; touch-action: manipulation; transition: all 0.15s;
+  }
   .meal.a.sel { border-color: #1976d2; background: #f0f7ff; box-shadow: 0 6px 16px rgba(25,118,210,0.25); }
   .meal.b.sel { border-color: #2e7d32; background: #f1f8f1; box-shadow: 0 6px 16px rgba(46,125,50,0.25); }
-  .tick { display: none; position: absolute; top: 14px; right: 14px; z-index: 5; background: #ffca28; color: #3e2723; font-weight: 900; font-size: 14px; padding: 5px 12px; border-radius: 50px; box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+
+  .tick {
+    display: none; position: absolute; top: 14px; right: 14px; z-index: 5;
+    background: #ffca28; color: #3e2723; font-weight: 900; font-size: 14px;
+    padding: 5px 12px; border-radius: 50px; box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  }
   .meal.sel .tick { display: inline-block; }
-  .meal-img-box { width: 100%; height: 142px; overflow: hidden; border-radius: 12px; margin-bottom: 6px; position: relative; pointer-events: none; }
+
+  /* 核心修正：採用黃金比例 aspect-ratio，手機與平板永遠完美貼合餐盤、絕不露雜字 */
+  .meal-img-box {
+    width: 100%; aspect-ratio: 16 / 9.2; overflow: hidden; border-radius: 12px;
+    margin-bottom: 8px; position: relative; pointer-events: none;
+  }
   .meal.a .meal-img-box { border: 2px solid #bbdefb; background: #e3f2fd; }
   .meal.b .meal-img-box { border: 2px solid #c8e6c9; background: #e8f5e9; }
-  .meal h3 { margin: 4px 0; font-size: 18px; font-weight: 900; pointer-events: none; }
+
+  .meal h3 { margin: 4px 0 6px 0; font-size: 18px; font-weight: 900; pointer-events: none; }
   .meal.a h3 { color: #1565c0; }
   .meal.b h3 { color: #2e7d32; }
-  .meal ul { margin: 4px 0 6px 0; padding-left: 0; list-style: none; font-size: 13.5px; font-weight: 700; color: #37474f; display: grid; grid-template-columns: 1fr 1fr; gap: 2px 6px; pointer-events: none; }
+
+  .meal ul {
+    margin: 4px 0 8px 0; padding-left: 0; list-style: none;
+    font-size: 14px; font-weight: 700; color: #37474f;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3px 6px; pointer-events: none;
+  }
   .meal ul li::before { content: "✓ "; font-weight: 900; }
   .meal.a ul li::before { color: #1976d2; }
   .meal.b ul li::before { color: #2e7d32; }
-  .bonus { background: #fff8e1; color: #e65100; font-size: 12.5px; font-weight: 900; padding: 4px 10px; border-radius: 8px; text-align: center; border: 1px solid #ffe082; pointer-events: none; }
-  .go { width: 100%; margin-top: 10px; padding: 12px; font-size: 18px; font-weight: 900; border: none; border-radius: 14px; background: #ff9800; color: #fff; cursor: pointer; box-shadow: 0 4px 0 #ef6c00; }
+
+  .bonus {
+    background: #fff8e1; color: #e65100; font-size: 13px; font-weight: 900;
+    padding: 5px 10px; border-radius: 8px; text-align: center; border: 1px solid #ffe082; pointer-events: none;
+  }
+
+  /* 送出按鈕與訊息 */
+  .go {
+    width: 100%; margin-top: 12px; padding: 13px; font-size: 18px; font-weight: 900;
+    border: none; border-radius: 14px; background: #ff9800; color: #fff;
+    cursor: pointer; box-shadow: 0 4px 0 #ef6c00; touch-action: manipulation;
+  }
   .go:disabled { background: #cfd8dc; color: #90a4ae; box-shadow: none; cursor: not-allowed; }
   .msg { text-align: center; font-weight: 900; font-size: 15px; margin-top: 6px; color: #1565c0; }
   .msg.err { color: #d32f2f; }
+
+  /* 投票完成畫面 */
   #done { display: none; text-align: center; padding: 25px 15px; }
   #done h2 { color: #2e7d32; font-size: 26px; margin: 0 0 10px 0; }
   #doneTxt { font-size: 18px; font-weight: 900; color: #37474f; margin-bottom: 18px; }
-  .admin-area { text-align: center; margin-top: 6px; }
-  .adm-btn { background: transparent; border: 1.5px solid #90a4ae; color: #546e7a; padding: 5px 14px; border-radius: 50px; font-size: 13px; font-weight: 700; cursor: pointer; }
+
+  /* 管理員開票區 */
+  .admin-area { text-align: center; margin-top: 6px; padding-bottom: 15px; }
+  .adm-btn {
+    background: transparent; border: 1.5px solid #90a4ae; color: #546e7a;
+    padding: 6px 16px; border-radius: 50px; font-size: 13px; font-weight: 700; cursor: pointer;
+  }
   #result { display: none; margin-top: 10px; text-align: left; }
   .bar { background: #eceff1; border-radius: 10px; overflow: hidden; height: 24px; margin: 4px 0 10px 0; }
   .bar div { height: 100%; color: #fff; font-size: 13px; font-weight: 900; line-height: 24px; padding-left: 10px; }
@@ -84,11 +160,11 @@
     <div class="card">
       <p class="step"><i>2</i>點一下你想吃的餐點</p>
       <div class="meals">
+        <!-- ① 前進世界餐 -->
         <div class="meal a" id="btnA" onclick="pickMeal('A')">
           <span class="tick">✓ 我選這個</span>
           <div class="meal-img-box">
-            <img src="banner.jpg" alt="前進世界餐" style="width:176%; max-width:none; margin-left:-3%; margin-top:-60%;">
-            <div style="position:absolute; top:0; right:0; width:28px; height:100%; background:linear-gradient(90deg, rgba(227,242,253,0) 0%, #e3f2fd 45%);"></div>
+            <img src="banner.jpg" alt="前進世界餐" style="width:184%; max-width:none; margin-left:-4%; margin-top:-63%;">
           </div>
           <h3>① 前進世界餐 🌍</h3>
           <ul>
@@ -97,11 +173,11 @@
           <div class="bonus">🎁 加菜金：橘子 ＋ 果汁</div>
         </div>
 
+        <!-- ② 綠色未來餐 -->
         <div class="meal b" id="btnB" onclick="pickMeal('B')">
           <span class="tick">✓ 我選這個</span>
           <div class="meal-img-box">
-            <img src="banner.jpg" alt="綠色未來餐" style="width:176%; max-width:none; margin-left:-77%; margin-top:-114%;">
-            <div style="position:absolute; bottom:0; left:0; width:34px; height:65%; background:linear-gradient(270deg, rgba(232,245,233,0) 0%, #e8f5e9 55%); border-top-right-radius:12px;"></div>
+            <img src="banner.jpg" alt="綠色未來餐" style="width:184%; max-width:none; margin-left:-84%; margin-top:-120%;">
           </div>
           <h3>② 綠色未來餐 🌱</h3>
           <ul>
@@ -129,7 +205,7 @@
 </div>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxXIjR3fKXBCXek7xDrwJSCsYVXlR8V76I99KZtyqhdrgihUYkNDR0ioaRbEJthni27hQ/exec";
+const SCRIPT_URL = "https://google.com";
 const ROSTER = {"一年一班":21,"一年二班":20,"一年三班":20,"一年四班":23,"二年一班":27,"二年二班":27,"二年三班":27,"二年四班":27,"三年一班":23,"三年二班":22,"三年三班":24,"三年四班":24,"四年一班":26,"四年二班":25,"四年三班":26,"四年四班":25,"五年一班":25,"五年二班":25,"五年三班":26,"五年四班":24,"六年一班":22,"六年二班":23,"六年三班":23,"六年四班":22,"六年五班":22,"教職員":150};
 const NAME = {"A":"① 前進世界餐","B":"② 綠色未來餐"};
 let choice = null;
@@ -148,75 +224,3 @@ function pickMeal(v) {
 }
 
 function checkForm() {
-  const c = document.getElementById("cls").value;
-  const s = document.getElementById("seat").value;
-  document.getElementById("go").disabled = !(c && s && choice);
-}
-
-function showMsg(t, isErr) {
-  const m = document.getElementById("msg");
-  m.textContent = t;
-  m.className = "msg" + (isErr ? " err" : "");
-}
-
-async function sendVote() {
-  const cn = document.getElementById("cls").value;
-  const s = parseInt(document.getElementById("seat").value, 10);
-  if (!(s >= 1 && s <= ROSTER[cn])) {
-    showMsg(cn + "的號碼範圍是 1～" + ROSTER[cn] + " 號", true);
-    return;
-  }
-  document.getElementById("go").disabled = true;
-  showMsg("選票傳送中，請稍候…", false);
-  try {
-    const res = await fetch(SCRIPT_URL + "?cls=" + encodeURIComponent(cn) + "&seat=" + s + "&choice=" + choice);
-    const r = await res.json();
-    if (!r.ok) {
-      showMsg(r.msg || "送出失敗", true);
-      document.getElementById("go").disabled = false;
-      return;
-    }
-  } catch (e) {
-    showMsg("送出失敗，請再按一次或請老師協助", true);
-    document.getElementById("go").disabled = false;
-    return;
-  }
-  document.getElementById("doneTxt").textContent = cn + " " + s + "號　你選了「" + NAME[choice] + "」";
-  document.getElementById("form").style.display = "none";
-  document.getElementById("done").style.display = "block";
-  document.getElementById("done").scrollIntoView({behavior:"auto", block:"center"});
-}
-
-function nextVoter() {
-  choice = null;
-  document.getElementById("seat").value = "";
-  document.getElementById("btnA").classList.remove("sel");
-  document.getElementById("btnB").classList.remove("sel");
-  showMsg("", false);
-  checkForm();
-  document.getElementById("done").style.display = "none";
-  document.getElementById("form").style.display = "block";
-  document.getElementById("cls").scrollIntoView({behavior:"auto", block:"center"});
-}
-
-async function openAdmin() {
-  const pw = prompt("請輸入管理員密碼");
-  if (!pw) return;
-  let a = 0, b = 0;
-  try {
-    const res = await fetch(SCRIPT_URL + "?action=count&pw=" + encodeURIComponent(pw));
-    const r = await res.json();
-    if (!r.ok) { alert(r.msg || "無法開票"); return; }
-    a = r.a; b = r.b;
-  } catch (e) { alert("無法連線，請確認網路狀態"); return; }
-  const t = (a + b) || 1;
-  const box = document.getElementById("result");
-  box.style.display = "block";
-  box.innerHTML = '<p class="step">📊 即時開票結果（共 ' + (a + b) + ' 票）</p>' +
-    '<b>① 前進世界餐　' + a + ' 票</b><div class="bar"><div style="width:' + (a/t*100) + '%;background:#1565c0">' + Math.round(a/t*100) + '%</div></div>' +
-    '<b>② 綠色未來餐　' + b + ' 票</b><div class="bar"><div style="width:' + (b/t*100) + '%;background:#2e7d32">' + Math.round(b/t*100) + '%</div></div>';
-  box.scrollIntoView({behavior:"smooth", block:"center"});
-}
-</script>
-</body>
-</html>
