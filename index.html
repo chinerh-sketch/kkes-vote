@@ -131,6 +131,9 @@ select,input{font:inherit;font-size:20px;padding:12px;border-radius:14px;border:
 </div>
 
 <script>
+// ⚠️ 請確認這一行有填寫您的 Google Apps Script 網址（若原本寫在 <script> 外面則保持原樣即可）
+// const SCRIPT_URL = "您的網址";
+
 const ROSTER={一年一班:21,一年二班:20,一年三班:20,一年四班:23,二年一班:27,二年二班:27,二年三班:27,二年四班:27,三年一班:23,三年二班:22,三年三班:24,三年四班:24,四年一班:26,四年二班:25,四年三班:26,四年四班:25,五年一班:25,五年二班:25,五年三班:26,五年四班:24,六年一班:22,六年二班:23,六年三班:23,六年四班:22,六年五班:22}; // 各班最大座號
 const $=id=>document.getElementById(id);
 let choice=null,db=null;
@@ -145,7 +148,6 @@ function check(){const t=$("cls").value==="教職員";$("go").disabled=!($("cls"
 ["cls","seat","staff"].forEach(i=>$(i).addEventListener("input",check));
 document.querySelectorAll(".meal").forEach(b=>b.onclick=()=>{
   choice=b.dataset.v;document.querySelectorAll(".meal").forEach(x=>x.classList.toggle("sel",x===b));check()});
-
 
 function say(t,e){$("msg").textContent=t;$("msg").className="msg"+(e?" err":"")}
 function localKey(k){return "kkes74:"+k}
@@ -172,16 +174,31 @@ $("again").onclick=()=>{
   choice=null;$("seat").value="";$("staff").value="";document.querySelectorAll(".meal").forEach(x=>x.classList.remove("sel"));
   say("");check();$("done").style.display="none";$("form").style.display="block";window.scrollTo(0,0)};
 
+// ✨ 更新後的即時開票功能：包含全校合計、學生、教職員分開統計
 $("adm").onclick=async()=>{
   const pw=prompt("請輸入管理員密碼");if(!pw)return;
-  let a=0,b=0;
-  try{const r=await (await fetch(SCRIPT_URL+"?action=count&pw="+encodeURIComponent(pw))).json();
-  if(!r.ok){alert(r.msg||"無法開票");return}a=r.a;b=r.b}catch(e){alert("無法連線，請確認 SCRIPT_URL");return}
-  const t=a+b||1,r=$("result");r.style.display="block";
-  r.innerHTML=`<p class="step">📊 即時開票（共 ${a+b} 票）</p>
+  let a=0,b=0,sa=0,sb=0,ta=0,tb=0;
+  try{
+    const res=await (await fetch(SCRIPT_URL+"?action=count&pw="+encodeURIComponent(pw))).json();
+    if(!res.ok){alert(res.msg||"無法開票");return}
+    a=res.a||0; b=res.b||0;
+    sa=res.sa||0; sb=res.sb||0;
+    ta=res.ta||0; tb=res.tb||0;
+  }catch(e){alert("無法連線，請確認 SCRIPT_URL");return}
+  
+  const t=a+b||1, st=sa+sb, tt=ta+tb, r=$("result");
+  r.style.display="block";
+  r.innerHTML=`
+  <p class="step">📊 全校即時開票（共 ${a+b} 票）</p>
   <b>① 前進世界餐　${a} 票</b><div class="bar"><div style="width:${a/t*100}%;background:var(--blue)">${Math.round(a/t*100)}%</div></div>
-  <b>② 綠色未來餐　${b} 票</b><div class="bar"><div style="width:${b/t*100}%;background:var(--green)">${Math.round(b/t*100)}%</div></div>`;
+  <b>② 綠色未來餐　${b} 票</b><div class="bar"><div style="width:${b/t*100}%;background:var(--green)">${Math.round(b/t*100)}%</div></div>
+  
+  <div style="margin-top:16px;padding:12px;background:#f8fafc;border-radius:12px;border:1px solid #cbd5e1;font-size:0.95rem;line-height:1.8;text-align:left;">
+    <div>🎒 <b>學生票數（共 ${st} 票）</b>：<span style="color:#0284c7;font-weight:700;">① ${sa} 票</span> ／ <span style="color:#16a34a;font-weight:700;">② ${sb} 票</span></div>
+    <div>👩‍🏫 <b>教職員票數（共 ${tt} 票）</b>：<span style="color:#0284c7;font-weight:700;">① ${ta} 票</span> ／ <span style="color:#16a34a;font-weight:700;">② ${tb} 票</span></div>
+  </div>`;
 };
 </script>
 </body>
 </html>
+
