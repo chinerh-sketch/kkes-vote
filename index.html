@@ -85,7 +85,7 @@ select,input{font:inherit;font-size:20px;padding:12px;border-radius:14px;border:
     <span class="badge">國光國小 74th 校慶系列活動</span>
     <h1>校慶特餐<span>2選1</span></h1>
     <div class="sub"><span>未來・前進 Future 74</span> <span>🍽️ 請點選你最想吃的特餐</span></div>
-    <div class="when"><span>🗳️ 投票時間：</span><span>11/17(二)–11/18(三)</span> <span>每人一票</span></div>
+    <div class="when"><span>🗳️ 投票時間：</span><span>11/18(三)中午 12:00 投票截止（每人一票）</span> <span>每人一票</span></div>
   </div>
 
   <div id="form">
@@ -122,7 +122,7 @@ select,input{font:inherit;font-size:20px;padding:12px;border-radius:14px;border:
       <div class="staff">
         <div><b>教職員請掃描海報上的 QR Code 投票（一人一票）</b>
         <p>📍 投票地點：學務處前走廊</p>
-        <p>🕘 11/17(二) – 11/18(三)</p></div>
+        <p>🕘 投票截止：11/18(三) 中午 12:00 止</p></div>
       </div>
       <p class="note" style="text-align:left">學生請使用班級平板，選好班級、座號與特餐後送出。</p>
     </div>
@@ -209,6 +209,23 @@ $("adm").onclick=async()=>{
     <div>👩‍🏫 <b>教職員票數（共 ${tt} 票）</b>：<span style="color:#0284c7;font-weight:700;">① ${ta} 票</span> ／ <span style="color:#16a34a;font-weight:700;">② ${tb} 票</span></div>
   </div>`;
 };
+// 11/18 中午 12:00 準時自動截止並顯示公告（不影響管理員開票）
+const DEADLINE = new Date("2026-11-18T12:00:00+08:00");
+function checkClose() {
+  if (new Date() >= DEADLINE) {
+    const f = $("form");
+    if (f) {
+      f.innerHTML = `<div style="text-align:center;padding:32px 16px;background:#fef2f2;border:2px solid #fca5a5;border-radius:18px;margin:12px 0;">
+        <div style="font-size:3rem;">⏰</div>
+        <h2 style="color:#dc2626;margin:10px 0;">投票已截止</h2>
+        <p style="font-weight:700;color:#7f1d1d;line-height:1.6;">本活動已於 11/18（三）中午 12:00 截止收票，<br>感謝全校師生的熱情參與！</p>
+      </div>`;
+    }
+    if ($("done")) $("done").style.display = "none";
+  }
+}
+checkClose();
+setInterval(checkClose, 5000);
 </script>
 </body>
 </html>
