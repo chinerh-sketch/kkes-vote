@@ -201,7 +201,7 @@ $("adm").onclick=async()=>{
   const t=a+b||1, st=sa+sb, tt=ta+tb, r=$("result");
   r.style.display="block";
   r.innerHTML=`
-    <p class="step">📊 全校即時開票（共 ${a+b} 票）</p>
+  <p class="step">📊 全校即時開票（共 ${a+b} 票）</p>
   <b>① 前進世界餐　${a} 票</b><div class="bar"><div style="width:${a/t*100}%;background:var(--blue)">${Math.round(a/t*100)}%</div></div>
   <b>② 綠色未來餐　${b} 票</b><div class="bar"><div style="width:${b/t*100}%;background:var(--green)">${Math.round(b/t*100)}%</div></div>
   
@@ -210,12 +210,6 @@ $("adm").onclick=async()=>{
     <span style="padding-left:1.6em;color:#0284c7;font-weight:700;">① ${sa} 票</span> ／ <span style="color:#16a34a;font-weight:700;">② ${sb} 票</span></div>
     <div style="margin-top:6px;">👩‍🏫 <b>教職員票數（共 ${tt} 票）</b><br>
     <span style="padding-left:1.6em;color:#0284c7;font-weight:700;">① ${ta} 票</span> ／ <span style="color:#16a34a;font-weight:700;">② ${tb} 票</span></div>
-  </div>`;
-
-  
-  <div style="margin-top:16px;padding:12px;background:#f8fafc;border-radius:12px;border:1px solid #cbd5e1;font-size:0.95rem;line-height:1.8;text-align:left;">
-    <div>🎒 <b>學生票數（共 ${st} 票）</b>：<span style="color:#0284c7;font-weight:700;">① ${sa} 票</span> ／ <span style="color:#16a34a;font-weight:700;">② ${sb} 票</span></div>
-    <div>👩‍🏫 <b>教職員票數（共 ${tt} 票）</b>：<span style="color:#0284c7;font-weight:700;">① ${ta} 票</span> ／ <span style="color:#16a34a;font-weight:700;">② ${tb} 票</span></div>
   </div>`;
 };
 // 11/18 中午 12:00 準時自動截止並顯示公告（不影響管理員開票）
